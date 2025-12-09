@@ -678,6 +678,7 @@ class LLaDAModelLMPadding(PreTrainedModel):
         seq_len: Optional[int] = None,
         block_end: Optional[int] = None,
         block_start: Optional[int] = None,
+        total_seq_len: Optional[int] = None,
     ) -> Union[Tuple, CausalLMOutputWithPast]:
         if use_cache is None:
             use_cache = self.config.use_cache
@@ -699,7 +700,7 @@ class LLaDAModelLMPadding(PreTrainedModel):
             q_indices=q_indices,
             k_indices=k_indices,
             update_rope=update_rope,
-            total_seq_len=seq_len,
+            total_seq_len=total_seq_len if total_seq_len is not None else seq_len,
             block_end=block_end,
             block_start=block_start,
         )
